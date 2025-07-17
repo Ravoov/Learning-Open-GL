@@ -45,7 +45,7 @@ int main(void)
     glBufferData(GL_ARRAY_BUFFER,6 * sizeof(float),position, GL_STATIC_DRAW);
 
 
-    //git test 2.0
+    //git test 3.0
     glBindBuffer(GL_ARRAY_BUFFER,0);
     ourShader.use();
 
