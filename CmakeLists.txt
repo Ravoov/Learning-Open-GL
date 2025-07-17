@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(NEWMINECRAFT)
+include_directories( ${CMAKE_SOURCE_DIR}/include)
 
-add_executable(NEWMINECRAFT main.cpp Shader.cpp)
+include_directories( ${CMAKE_SOURCE_DIR}/)
+add_executable(NEWMINECRAFT ${CMAKE_SOURCE_DIR}/src/main.cpp  ${CMAKE_SOURCE_DIR}/src/Shader.cpp)
 set_target_properties(NEWMINECRAFT PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/release"
 )
@@ -10,8 +12,8 @@ set_target_properties(NEWMINECRAFT PROPERTIES
 target_compile_definitions(NEWMINECRAFT PRIVATE GLEW_STATIC)
 # Link the static libraries directly
 target_link_libraries(NEWMINECRAFT
-    "${CMAKE_SOURCE_DIR}/libglew32d.a"
-    "${CMAKE_SOURCE_DIR}/libglfw3.a"
+    "${CMAKE_SOURCE_DIR}/libs/libglew32d.a"
+    "${CMAKE_SOURCE_DIR}/libs/libglfw3.a"
     opengl32
     
 )
