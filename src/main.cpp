@@ -27,11 +27,7 @@ int main(void)
 
  Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
     ourShader.use();
- int location =glGetUniformLocation(ourShader.ID,"u_Color");
-if (location == -1) {
-    std::cout << "Uniform 'u_Color' not found!" << std::endl;
-}
- glUniform4f(location,0.2f,0.3f,0.4f,1.0f);
+    ourShader.setFloat("u_Color",1.0f,0.5f,0.5f,1.0f);
 
 
 
