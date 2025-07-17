@@ -26,6 +26,15 @@ int main(void)
 
 
  Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
+    ourShader.use();
+ int location =glGetUniformLocation(ourShader.ID,"u_Color");
+if (location == -1) {
+    std::cout << "Uniform 'u_Color' not found!" << std::endl;
+}
+ glUniform4f(location,0.2f,0.3f,0.4f,1.0f);
+
+
+
 
     //positon for floats
    
@@ -47,7 +56,7 @@ float texCoords[] = {
     0.0,0.5
     // top-center corner
 };
-    ourShader.use();
+   
 
 
 unsigned int VAO, VBO, EBO;
