@@ -27,7 +27,7 @@ int main(void)
 
  Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
     ourShader.use();
-    ourShader.setFloat("u_Color",1.0f,0.5f,0.5f,1.0f);
+    ourShader.setFloat("u_Color",1.0f,1.5f,0.0f,1.0f);
 
 
 
