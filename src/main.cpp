@@ -54,16 +54,16 @@ float texCoords[] = {
     // top-center corner
 };
    
-unsigned int vao;
-glGenVertexArrays(1,&vao);
-glBindVertexArray(vao);
+unsigned int vao;                           // VAO vao
+glGenVertexArrays(1,&vao);                  //vao.GenVertex(number,m_OBJ,layout)
+glBindVertexArray(vao);                     //vao.bind
 
 
 
 VertexBuffer vb(vertices,sizeof(vertices));
 
-glEnableVertexAttribArray(0);
-glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0);
+glEnableVertexAttribArray(0);               //vao.Enable
+glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0); //vao.Point(,loaction ,count, type , nomailze?, disdents between bytes )
 
 IndexBuffer ib(indices , 6);
 
