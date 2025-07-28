@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vertexbuffer.h>
 #include <indexbuffer.h>
-
+#include <vertexarray.h>
 int main(void)
 {
     GLFWwindow* window;
@@ -53,23 +53,10 @@ float texCoords[] = {
     0.0,0.5
     // top-center corner
 };
-   
-unsigned int vao;                           // VAO vao
-glGenVertexArrays(1,&vao);                  //vao.GenVertex(number,m_OBJ,layout)
-glBindVertexArray(vao);                     //vao.bind
-
-
-
 VertexBuffer vb(vertices,sizeof(vertices));
-
-glEnableVertexAttribArray(0);               //vao.Enable
-glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,sizeof(float)*3,0); //vao.Point(,loaction ,count, type , nomailze?, disdents between bytes )
+vertexArray vao(0,3,GL_FLOAT,GL_FALSE,sizeof(float)* 3 , 0, &vb);
 
 IndexBuffer ib(indices , 6);
-
-
-
-
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -79,10 +66,11 @@ IndexBuffer ib(indices , 6);
         
     ib.Bind();
     vb.Bind();
-    // Bind VAO and draw
-    glBindVertexArray(vao);
+    vao.Bind();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    vao.Unbind();
+    vb.Unbind();
+    ib.Unbind();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
