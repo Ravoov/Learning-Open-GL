@@ -18,12 +18,12 @@ vertexArray::vertexArray(GLuint index, GLint size, GLenum type, GLboolean normal
     glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 }
 
-void vertexArray::Bind() // Corrected return type
+void vertexArray::Bind()  const // Corrected return type
 {
     glBindVertexArray(m_Id);
 }
 
-void vertexArray::Unbind() // Corrected return type
+void vertexArray::Unbind() const // Corrected return type
 {
     glBindVertexArray(0); // CORRECT: Unbind by binding to 0
 }

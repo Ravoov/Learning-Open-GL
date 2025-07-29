@@ -5,6 +5,7 @@
 #include <vertexbuffer.h>
 #include <indexbuffer.h>
 #include <vertexarray.h>
+#include <renderer.h>
 int main(void)
 {
     GLFWwindow* window;
@@ -25,10 +26,6 @@ int main(void)
     glfwMakeContextCurrent(window);
     glewInit();
 
-
- Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
-    ourShader.use();
-    ourShader.setFloat("u_Color",1.0f,1.5f,0.0f,1.0f);
 
 
 
@@ -53,30 +50,37 @@ float texCoords[] = {
     0.0,0.5
     // top-center corner
 };
+
+
+Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
+ourShader.use();
+ourShader.setFloat("u_Color",1.0f,1.5f,0.0f,1.0f);
 VertexBuffer vb(vertices,sizeof(vertices));
 vertexArray vao(0,3,GL_FLOAT,GL_FALSE,sizeof(float)* 3 , 0, &vb);
 
 IndexBuffer ib(indices , 6);
+
+Renderer renderer;
+
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+       
 
         
-    ib.Bind();
-    vb.Bind();
-    vao.Bind();
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    vao.Unbind();
-    vb.Unbind();
-    ib.Unbind();
-
-        /* Swap front and back buffers */
+    
+   
+    renderer.clear();
+    renderer.draw(vao,ib,ourShader);
+    
+         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
         glfwPollEvents();
+       
     }
     
     glfwTerminate();

@@ -3,7 +3,19 @@ project(LearingOpenGL)
 include_directories( ${CMAKE_SOURCE_DIR}/include)
 
 include_directories( ${CMAKE_SOURCE_DIR}/)
-add_executable(NEWMINECRAFT ${CMAKE_SOURCE_DIR}/src/main.cpp  ${CMAKE_SOURCE_DIR}/src/Shader.cpp ${CMAKE_SOURCE_DIR}/src/indexbuffer.cpp ${CMAKE_SOURCE_DIR}/src/vertexbuffer.cpp ${CMAKE_SOURCE_DIR}/src/vertexarray.cpp)
+add_executable(NEWMINECRAFT ${CMAKE_SOURCE_DIR}/src/main.cpp  
+${CMAKE_SOURCE_DIR}/src/Shader.cpp ${CMAKE_SOURCE_DIR}/src/indexbuffer.cpp 
+${CMAKE_SOURCE_DIR}/src/vertexbuffer.cpp 
+${CMAKE_SOURCE_DIR}/src/vertexarray.cpp
+
+${CMAKE_SOURCE_DIR}/src/renderer.cpp
+
+)
+
+
+
+
+
 set_target_properties(NEWMINECRAFT PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/release"
 )
