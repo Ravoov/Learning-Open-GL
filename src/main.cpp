@@ -1,36 +1,11 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <Shader.h>
-#include <iostream>
-#include <vertexbuffer.h>
-#include <indexbuffer.h>
-#include <vertexarray.h>
+
 #include <renderer.h>
 int main(void)
 {
-    GLFWwindow* window;
+    
+Renderer renderer;
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
-   
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-    glewInit();
-
-
-
-
-
-    //positon for floats
+renderer.init(600,600);
    
 float vertices[] = {
     0.5f,  0.5f, 0.0f,  // top right
@@ -43,13 +18,6 @@ unsigned int indices[] = {  // note that we start from 0!
     1, 2, 3    // second triangle
 };  
 
-float texCoords[] = {
-    0.0f, 0.0f,  // lower-left corner  
-    0.0f,0.5f,
-    0.5,0.5,
-    0.0,0.5
-    // top-center corner
-};
 
 
 Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
@@ -60,29 +28,17 @@ vertexArray vao(0,3,GL_FLOAT,GL_FALSE,sizeof(float)* 3 , 0, &vb);
 
 IndexBuffer ib(indices , 6);
 
-Renderer renderer;
+
 
 
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(renderer.m_window))
     {
         /* Render here */
-       
-
-        
-    
-   
     renderer.clear();
     renderer.draw(vao,ib,ourShader);
-    
-         /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
-       
+    renderer.update();
     }
-    
     glfwTerminate();
     return 0;
 }

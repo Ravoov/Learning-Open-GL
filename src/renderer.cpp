@@ -17,3 +17,17 @@ void::Renderer::clear()
      glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void Renderer::init( int width, int height){
+
+        glfwInit();
+        m_window = glfwCreateWindow(width,height,"Learn Open GL",nullptr,nullptr);
+        glfwMakeContextCurrent(m_window);
+       glewInit();
+}
+
+
+void::Renderer::update()
+{
+    glfwSwapBuffers(m_window);
+    glfwPollEvents();
+}
