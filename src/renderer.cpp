@@ -23,6 +23,8 @@ void Renderer::init( int width, int height){
         m_window = glfwCreateWindow(width,height,"Learn Open GL",nullptr,nullptr);
         glfwMakeContextCurrent(m_window);
        glewInit();
+       glViewport(0, 0, width, height);
+
 }
 
 

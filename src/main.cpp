@@ -1,5 +1,7 @@
 
 #include <renderer.h>
+#include <Texture.h>
+#include <vertexbuffer.h>
 int main(void)
 {
     
@@ -8,24 +10,39 @@ Renderer renderer;
 renderer.init(600,600);
    
 float vertices[] = {
-    0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
+    0.5f,  0.5f, 0.0f, 0.0f,  // top right
+     0.5f, -0.5f, 1.0f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 1.0f, 1.0f, // bottom left
+    -0.5f,  0.5f, 0.0f , 1.0 // top left 
 };
 unsigned int indices[] = {  // note that we start from 0!
     0, 1, 3,   // first triangle
     1, 2, 3    // second triangle
 };  
+
+
+
+
+
 //random
 float color = 0.1f;
+
 
 Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
 ourShader.use();
 
-VertexBuffer vb(vertices,sizeof(vertices));
-vertexArray vao(0,3,GL_FLOAT,GL_FALSE,sizeof(float)* 3 , 0, &vb);
+Texture texture("asset.png");
+texture.Bind();
+ourShader.setInt("u_Texture",0);
 
+
+
+
+
+VertexBuffer vb(vertices,sizeof(vertices));
+vertexArray vao(0,4,GL_FLOAT,GL_FALSE,sizeof(float)* 4 , 0, &vb);
+glEnableVertexAttribArray(1);
+glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void*)(sizeof(float) * 2));
 IndexBuffer ib(indices , 6);
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(renderer.m_window))
