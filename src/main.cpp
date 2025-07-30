@@ -31,9 +31,9 @@ float color = 0.1f;
 Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
 ourShader.use();
 
-Texture texture("asset.png");
-texture.Bind();
-ourShader.setInt("u_Texture",0);
+Texture texture("C:/Users/numbe/Documents/Learn Open GL/src/asset.png");
+texture.Bind(1);
+ourShader.setInt("u_Texture",1);
 
 
 
@@ -50,7 +50,9 @@ IndexBuffer ib(indices , 6);
         /* Render here */
     renderer.clear();
     renderer.draw(vao,ib,ourShader);
-    ourShader.setFloat("u_Color",1.0f,color,color,1.0f);
+    texture.Bind(1);
+    ourShader.setInt("u_Texture",1);
+   
     color += 0.0001f;
     if(color > 1.0f) color = 0.0f;
     renderer.update();

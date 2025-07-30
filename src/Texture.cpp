@@ -9,14 +9,15 @@ Texture::Texture(const std::string &filePath)
 {
     stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load(filePath.c_str(), &m_Width, &m_height, &m_BPP, 0);
-
+std::cerr << "Trying to load texture at: " << filePath << std::endl;
 if (!data) {
-    std::cerr << "❌ Failed to load texture at: " << filePath << std::endl;
+    std::cerr << " Failed to load texture at: " << filePath << std::endl;
+     std::cerr << "Error reason: " << stbi_failure_reason() << std::endl;
 } else {
-    std::cout << "✅ Loaded texture: " << filePath
+    std::cout << " Loaded texture: " << filePath
               << " (" << m_Width << "x" << m_height << ", " << m_BPP << " channels)\n";
 }
-    m_LocalBuffer = stbi_load(filePath.c_str(), &m_Width, &m_height, &m_BPP, 4);
+   // m_LocalBuffer = stbi_load(filePath.c_str(), &m_Width, &m_height, &m_BPP, 4);
     
     
     
@@ -24,10 +25,10 @@ if (!data) {
     glGenTextures(1, &m_RendererID);
     glBindTexture(GL_TEXTURE_2D,m_RendererID);
 // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_CLAMP);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer);
     glBindTexture(GL_TEXTURE_2D,0);

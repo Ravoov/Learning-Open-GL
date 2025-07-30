@@ -7,7 +7,7 @@ class Texture
 private:
     unsigned int m_RendererID;
     std::string m_FilePath;
-    stbi_uc* m_LocalBuffer; // This is typedef’d to unsigned char by stb_image
+    unsigned char* m_LocalBuffer; // This is typedef’d to unsigned char by stb_image
 
     int m_Width,m_height;
     int m_BPP;
