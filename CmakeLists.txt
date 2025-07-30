@@ -29,3 +29,19 @@ add_custom_command(TARGET NEWMINECRAFT POST_BUILD
     "${CMAKE_SOURCE_DIR}/shaders"
     "${CMAKE_SOURCE_DIR}/release/shaders"
 )
+
+# --- NEW COMMAND TO COPY ASSETS ---
+# Define the source directory for your assets
+set(ASSET_SOURCE_DIR "${CMAKE_SOURCE_DIR}/assets") # Adjust this if your source 'asset.png' is elsewhere
+
+# Define the destination directory for your assets inside the release folder.
+# Your C++ code is looking for "asset/asset.png" relative to the executable,
+# so we need a subfolder named 'asset' within the release directory.
+set(ASSET_DEST_DIR "${CMAKE_SOURCE_DIR}/release/asset")
+
+add_custom_command(TARGET NEWMINECRAFT POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${ASSET_SOURCE_DIR}"
+    "${ASSET_DEST_DIR}"
+    COMMENT "Copying assets to release directory"
+)

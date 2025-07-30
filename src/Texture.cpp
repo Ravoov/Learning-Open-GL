@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "stb_image/stb_image.h"
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -17,7 +17,7 @@ if (!data) {
     std::cout << " Loaded texture: " << filePath
               << " (" << m_Width << "x" << m_height << ", " << m_BPP << " channels)\n";
 }
-   // m_LocalBuffer = stbi_load(filePath.c_str(), &m_Width, &m_height, &m_BPP, 4);
+    m_LocalBuffer = stbi_load(filePath.c_str(), &m_Width, &m_height, &m_BPP, 4);
     
     
     
@@ -25,17 +25,25 @@ if (!data) {
     glGenTextures(1, &m_RendererID);
     glBindTexture(GL_TEXTURE_2D,m_RendererID);
 // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,GL_CLAMP);
+       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    // set texture filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer);
     glBindTexture(GL_TEXTURE_2D,0);
     if(m_LocalBuffer)
     {
         stbi_image_free(m_LocalBuffer);
+    } else {
+          // IMPORTANT: Print an error if image loading fails!
+        std::cerr << "ERROR: Failed to load texture: " << filePath << std::endl;
+        std::cerr << "stb_image error: " << stbi_failure_reason() << std::endl;
+        std::cerr << "stb_image error reason: " << stbi_failure_reason() << std::endl; // THIS IS KEY!
+    
     }
+      
 
 
 
