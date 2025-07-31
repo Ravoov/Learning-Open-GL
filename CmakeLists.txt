@@ -15,14 +15,12 @@ set_target_properties(main PROPERTIES
 
 
 target_compile_definitions(main PRIVATE GLEW_STATIC)
-# Link the static libraries directly
+
 target_link_libraries(main
     "${CMAKE_SOURCE_DIR}/libs/libglew32d.a"
     "${CMAKE_SOURCE_DIR}/libs/libglfw3.a"
     "${CMAKE_SOURCE_DIR}/stb_image/build/libstb_image.a"
-
     opengl32
-    
 )
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -31,13 +29,10 @@ add_custom_command(TARGET main POST_BUILD
     COMMENT "Copying shaders"
 )
 
-# --- NEW COMMAND TO COPY ASSETS ---
-# Define the source directory for your assets
-set(ASSET_SOURCE_DIR "${CMAKE_SOURCE_DIR}/assets") # Adjust this if your source 'asset.png' is elsewhere
 
-# Define the destination directory for your assets inside the release folder.
-# Your C++ code is looking for "asset/asset.png" relative to the executable,
-# so we need a subfolder named 'asset' within the release directory.
+set(ASSET_SOURCE_DIR "${CMAKE_SOURCE_DIR}/assets") 
+
+
 set(ASSET_DEST_DIR "${CMAKE_SOURCE_DIR}/release/asset")
 
 add_custom_command(TARGET main POST_BUILD
