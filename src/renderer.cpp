@@ -1,19 +1,5 @@
 #include <renderer.h>
-void GLClearError()
-{
-    while (glGetError() != GL_NO_ERROR); // Loop to clear all pending errors
-}
 
-bool GLLogCall(const char* function, const char* file, int line)
-{
-    while (GLenum error = glGetError())
-    {
-        std::cerr << "[OpenGL Error] (" << error << "): " << function <<
-            " " << file << ":" << line << std::endl;
-        return false; // Return false if an error occurred
-    }
-    return true; // Return true if no errors
-}
 
 
 void Renderer::draw(const vertexArray& va, const IndexBuffer& ib, const Shader& shader) const
@@ -23,7 +9,7 @@ void Renderer::draw(const vertexArray& va, const IndexBuffer& ib, const Shader& 
     va.Bind();
     ib.Bind();
    
-    GLCall((GL_TRIANGLES,ib.GetCount(),GL_UNSIGNED_INT,nullptr));
+    glDrawElements(GL_TRIANGLES,ib.GetCount(),GL_UNSIGNED_INT,nullptr);
 }
 
 void::Renderer::clear()

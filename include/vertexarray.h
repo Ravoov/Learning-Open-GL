@@ -1,6 +1,10 @@
-#pragma once
-#include "renderer.h" // Assuming this includes necessary GL/GLFW headers
-#include "vertexbuffer.h" // Need VertexBuffer definition
+#pragma once 
+
+// Explicitly include GLEW for OpenGL types (GLuint, GLenum, etc.)
+#include <GL/glew.h> 
+
+// Include VertexBuffer definition, as vertexArray uses VertexBuffer pointers
+#include "vertexbuffer.h" 
 
 class vertexArray
 {
@@ -15,10 +19,9 @@ public:
     ~vertexArray();
 
     // Method to add an attribute to this *already bound* VAO
-    // This replaces the old constructor's attribute setup logic
     void AddAttribute(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointer, VertexBuffer * vb);
 
-    // Bind and Unbind methods remain the same
+    // Bind and Unbind methods
     void Bind() const;
     void Unbind() const;
 };
