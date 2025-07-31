@@ -41,7 +41,7 @@ int main(void)
         std::cout << "DEBUG: 'aTexCoord' found at location: " << texCoordLocation << std::endl;
     }
 
-
+    //creats texture
     std::cout << "Creating texture..." << std::endl;
     Texture texture("asset/asset.png"); // Make sure this path is correct!
     std::cout << "Texture created. Binding texture." << std::endl;
