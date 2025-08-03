@@ -34,3 +34,4 @@ void::Renderer::update()
     glfwSwapBuffers(m_window);
     glfwPollEvents();
 }
+
