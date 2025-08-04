@@ -30,15 +30,10 @@ int main(void)
     Shader ourShader("shaders/basic.vert", "shaders/basic.frag");
     //std::cout << "Shader created. Using shader." << std::endl;
     ourShader.use();
-
-  
     GLint texCoordLocation = glGetAttribLocation(ourShader.ID, "aTexCoord"); // No GLCall here, it's just a getter
-    /*if (texCoordLocation == -1) {
+    if (texCoordLocation == -1) {
         std::cerr << "ERROR: Attribute 'aTexCoord' not found in shader program!" << std::endl;
-    } else {
-        std::cout << "DEBUG: 'aTexCoord' found at location: " << texCoordLocation << std::endl;
-    }*/
-
+    } 
     //creats texture
     //std::cout << "Creating texture..." << std::endl;
     Texture texture("asset/asset.png"); // Make sure this path is correct!
