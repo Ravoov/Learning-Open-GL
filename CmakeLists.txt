@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(main)
 include_directories( ${CMAKE_SOURCE_DIR}/include)
-
+add_library(stb_image ${CMAKE_SOURCE_DIR}/stb_image/stb_image.cpp)
 include_directories( ${CMAKE_SOURCE_DIR}/)
 add_executable(main ${CMAKE_SOURCE_DIR}/src/main.cpp ${CMAKE_SOURCE_DIR}/src/Shader.cpp ${CMAKE_SOURCE_DIR}/src/indexbuffer.cpp ${CMAKE_SOURCE_DIR}/src/vertexbuffer.cpp ${CMAKE_SOURCE_DIR}/src/vertexarray.cpp ${CMAKE_SOURCE_DIR}/src/renderer.cpp ${CMAKE_SOURCE_DIR}/src/Texture.cpp)
 
@@ -19,8 +19,8 @@ target_compile_definitions(main PRIVATE GLEW_STATIC)
 target_link_libraries(main
     "${CMAKE_SOURCE_DIR}/libs/libglew32d.a"
     "${CMAKE_SOURCE_DIR}/libs/libglfw3.a"
-    "${CMAKE_SOURCE_DIR}/stb_image/build/libstb_image.a"
     opengl32
+    stb_image
 )
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
